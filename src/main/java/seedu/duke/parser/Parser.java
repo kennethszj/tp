@@ -6,12 +6,15 @@ import java.util.logging.Logger;
 import seedu.duke.commands.Command;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
+import seedu.duke.ui.Ui;
 
 public class Parser {
     private final Hospital hospital;
+    private final Ui ui;
 
-    public Parser(Hospital hospital) {
+    public Parser(Hospital hospital, Ui ui) {
         this.hospital = hospital;
+        this.ui = ui;
     }
 
     private static final Logger LOGGER = Logger.getLogger("Parser");
@@ -67,7 +70,8 @@ public class Parser {
 
         case "list":
             try{
-                return new ListParser().execute(line, state);
+                ListParser listParser = new ListParser(hospital, ui);
+                return new ListParser(hospital, ui).execute(line, state);
             } catch (NumberFormatException e) {
                 System.out.println("Number format exception");
                 LOGGER.log(Level.WARNING, "List Command Error: Non-Numerical Error");
