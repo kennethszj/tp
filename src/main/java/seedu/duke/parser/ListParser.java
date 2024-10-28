@@ -19,7 +19,7 @@ public class ListParser implements CommandParser{
     @Override
     public Command execute(String line, State state) {
         if (state.getState() == StateType.MAIN_STATE) {
-            return new ListPatientCommand();
+            return new ListPatientCommand(hospital, ui);
         } else if (state.getState() == StateType.TASK_STATE) {
             Patient selectedPatient = hospital.getSelectedPatient();
             return new ListTaskCommand(selectedPatient, ui);

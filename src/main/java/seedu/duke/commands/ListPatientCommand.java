@@ -3,6 +3,9 @@ package seedu.duke.commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.data.hospital.Hospital;
+import seedu.duke.ui.Ui;
+
 public class ListPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_LIST_SUCCESS = "End of your patients list!";
@@ -10,11 +13,15 @@ public class ListPatientCommand extends HospitalCommand {
 
     private static final Logger logger = Logger.getLogger(ListPatientCommand.class.getName());
 
+    private final Hospital hospital;
+    private final Ui ui;
+
+    public ListPatientCommand(Hospital hospital, Ui ui) {
+        this.hospital = hospital;
+        this.ui = ui;
+    }
     static {
         logger.setLevel(Level.SEVERE);
-    }
-
-    public ListPatientCommand() {
     }
 
     @Override
@@ -26,7 +33,7 @@ public class ListPatientCommand extends HospitalCommand {
             return new CommandResult(MESSAGE_EMPTY_LIST);
         }
 
-        hospital.printList();
+        ui.showPatientListWithCompletionRate(hospital);
         return new CommandResult(MESSAGE_LIST_SUCCESS);
     }
 }

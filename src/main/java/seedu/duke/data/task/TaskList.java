@@ -24,7 +24,7 @@ public class TaskList {
         this.tasks = tasks;
         this.completionRate = calCompletionRate();
     }
-    
+
     public void setCompletionRate(double completionRate) {
         this.completionRate = completionRate;
     }
@@ -41,8 +41,8 @@ public class TaskList {
         if(getSize() == 0) {
             rate = 1.0;
         } else {
-            rate = (double) done / getSize();   
-        } 
+            rate = (double) done / getSize();
+        }
         return rate;
     }
 
@@ -153,6 +153,22 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Returns the number of completed tasks in the TaskList.
+     *
+     * @return number of completed tasks.
+     */
+    @JsonIgnore
+    public int getCompletedTaskCount() {
+        int completedCount = 0;
+        for (Task task : tasks) {
+            if (task.isDone()) {
+                completedCount++;
+            }
+        }
+        return completedCount;
     }
 
     @Override

@@ -1,7 +1,9 @@
 package seedu.duke.ui;
+import java.util.List;
 import java.util.Scanner;
 
 import seedu.duke.common.Messages;
+import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.task.TaskList;
 
@@ -60,12 +62,31 @@ public class Ui {
         String completionPercentage = taskList.completionRatePercentageToString();
 
         //display info with completion rate
-        System.out.printf("Patient: %s %s [Tasks Completed: %s]%n", patient.getName(), patient.getFormattedTag(), completionPercentage);
-        System.out.println("Here are the tasks in your list!");
+        System.out.printf("%sPatient:%s %s %s [Tasks Completed: %s%s%s]%n",
+                Colors.ANSI_BLUE, Colors.ANSI_RESET,
+                patient.getName(), patient.getFormattedTag(),
+                Colors.ANSI_GREEN, completionPercentage, Colors.ANSI_RESET);
+        System.out.println(Colors.ANSI_BLUE + "Here are the tasks in your list!" + Colors.ANSI_RESET);
         System.out.println(taskList); //use TaskList's toString method to print the list of tasks
     }
 
+    public void showPatientListWithCompletionRate(Hospital hospital) {
+        showLine();
 
+        //calculate and display the overall task completion rate
+        double completionRate = hospital.calculateOverallCompletionRate();
+        System.out.printf("%s%.0f%% of tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate, Colors.ANSI_RESET);
+
+        //display each patient
+        System.out.println(Colors.ANSI_BLUE + "Here are the patients in your list:" + Colors.ANSI_RESET);
+        List<Patient> patients = hospital.getPatients();
+        for (int i = 0; i < patients.size(); i++) {
+            Patient patient = patients.get(i);
+            System.out.printf("%s%d.%s %s %s%n",
+                    Colors.ANSI_BLUE, i + 1, Colors.ANSI_RESET,
+                    patient.getName(), patient.getFormattedTag());
+        }
+    }
     /**
      * Reads a command inputted by the user.
      *
