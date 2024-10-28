@@ -96,6 +96,10 @@ public class Hospital {
         return selectedPatient;
     }
 
+    public void clearSelectedPatient() {
+        this.selectedPatient = null;
+    }
+
     public boolean isValidIndex(int index) {
         return index >= 0 && index < getSize();
     }

@@ -62,6 +62,7 @@ public class MediTask {
     private void runCommandLoopUntilExitCommand() {
         Command command;
         String commandInput;
+        Parser parser = new Parser(hospital);
 
         do {
             // Show main screen if no patient is selected
@@ -74,7 +75,7 @@ public class MediTask {
             commandInput = ui.readCommand();
 
             // parse and execute the command, and also pass in the currentState
-            command = new Parser().parseCommand(commandInput, stageManager.getCurrentState());
+            command = new Parser(hospital).parseCommand(commandInput, stageManager.getCurrentState());
 
             // Execute the command
             CommandResult result;

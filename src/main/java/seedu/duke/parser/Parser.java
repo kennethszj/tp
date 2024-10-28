@@ -4,9 +4,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.duke.commands.Command;
+import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 
 public class Parser {
+    private final Hospital hospital;
+
+    public Parser(Hospital hospital) {
+        this.hospital = hospital;
+    }
+
     private static final Logger LOGGER = Logger.getLogger("Parser");
 
     static {
@@ -105,7 +112,7 @@ public class Parser {
 
         case "back":
             try{
-                return new BackParser().execute(line, state);
+                return new BackParser(hospital).execute(line, state);
             } catch (NumberFormatException e) {
                 System.out.println("Number format exception");
                 LOGGER.log(Level.WARNING, "Back Command Error: Non-Numerical Error");

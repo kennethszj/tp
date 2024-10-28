@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
@@ -14,21 +15,25 @@ public class BackCommand extends Command {
     private static final Logger logger = Logger.getLogger(BackCommand.class.getName());
 
     private State state;
+    private Hospital hospital; //need to clear selected patient after using backCommand
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
-    public BackCommand(State state) {
+    public BackCommand(State state, Hospital hospital) {
         this.state = state;
+        this.hospital = hospital;
     }
 
     @Override
     public CommandResult execute() {
         assert state != null : "State object should not be null";
+        assert hospital != null : "Hospital object should not be null";
 
         if (state.getState() == StateType.TASK_STATE) {
             state.setState(StateType.MAIN_STATE);
+            hospital.clearSelectedPatient();
             // System.out.println(MESSAGE_SWITCHED_TO_MAIN);
             return new CommandResult(MESSAGE_SWITCHED_TO_MAIN);
         } else {
