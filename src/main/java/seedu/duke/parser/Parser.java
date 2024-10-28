@@ -71,7 +71,6 @@ public class Parser {
 
         case "list":
             try{
-                ListParser listParser = new ListParser(hospital, ui);
                 return new ListParser(hospital, ui).execute(line, state);
             } catch (NumberFormatException e) {
                 System.out.println("Number format exception");
