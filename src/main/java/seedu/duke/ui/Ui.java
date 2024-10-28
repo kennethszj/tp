@@ -70,6 +70,13 @@ public class Ui {
         System.out.println(taskList); //use TaskList's toString method to print the list of tasks
     }
 
+    /**
+     * Displays a list of patients along with the overall task completion rate for all tasks.
+     * The method calculates the percentage of completed tasks across all patients and
+     * displays each patient in the list with color-coded formatting.
+     *
+     * @param hospital The Hospital object containing the list of patients and tasks.
+     */
     public void showPatientListWithCompletionRate(Hospital hospital) {
         showLine();
 

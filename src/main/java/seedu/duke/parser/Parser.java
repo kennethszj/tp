@@ -9,18 +9,19 @@ import seedu.duke.data.state.State;
 import seedu.duke.ui.Ui;
 
 public class Parser {
+
+    private static final Logger LOGGER = Logger.getLogger("Parser");
+
+    static {
+        LOGGER.setLevel(Level.SEVERE);
+    }
+
     private final Hospital hospital;
     private final Ui ui;
 
     public Parser(Hospital hospital, Ui ui) {
         this.hospital = hospital;
         this.ui = ui;
-    }
-
-    private static final Logger LOGGER = Logger.getLogger("Parser");
-
-    static {
-        LOGGER.setLevel(Level.SEVERE);
     }
 
     public Command parseCommand(String line, State state){

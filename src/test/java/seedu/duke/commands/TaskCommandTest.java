@@ -1,11 +1,28 @@
 package seedu.duke.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.task.TaskList;
+import seedu.duke.ui.Ui;
 
 public class TaskCommandTest {
+
+    private TaskList tasks;
+    private Patient patient;
+    private Ui ui;
+
+    @BeforeEach
+    void setUp() {
+        tasks = new TaskList();
+        patient = new Patient("Test Patient");
+        patient.setTaskList(tasks); //link tasklist to patient
+        ui = new Ui();
+    }
+
     @Test
     void testAddTodo() {
         AddTaskCommand addTaskCommand = new AddTaskCommand("todo", "Read book");
@@ -84,7 +101,7 @@ public class TaskCommandTest {
         command.setData(tasks);
         command.execute();
 
-        ListTaskCommand listTaskCommand = new ListTaskCommand();
+        ListTaskCommand listTaskCommand = new ListTaskCommand(patient, ui);
         listTaskCommand.setData(tasks);
         CommandResult commandResult = listTaskCommand.execute();
         assertEquals("Here are the tasks in your list!\n1. [T][ ] Read book\n", 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
+import seedu.duke.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PatientCommandTest {
     private Hospital hospital;
     private State state;
+    private Ui ui;
 
     @BeforeEach
     void setUp() {
         hospital = new Hospital();
         state = new State(StateType.MAIN_STATE);
+        ui = new Ui();
     }
 
     private void addPatients(String[] names, String[] nrics) {
@@ -105,7 +108,7 @@ class PatientCommandTest {
         hospital.addPatient("Alice", "S1234567A");
         hospital.addPatient("Bob", "S7654321B");
 
-        ListPatientCommand listPatientCommand = new ListPatientCommand();
+        ListPatientCommand listPatientCommand = new ListPatientCommand(hospital, ui);
         listPatientCommand.setHospital(hospital);
         CommandResult result = listPatientCommand.execute();
 
@@ -115,7 +118,7 @@ class PatientCommandTest {
 
     @Test
     public void testListPatientCommand_emptyList_displaysEmptyMessage() {
-        ListPatientCommand listPatientCommand = new ListPatientCommand();
+        ListPatientCommand listPatientCommand = new ListPatientCommand(hospital, ui);
         listPatientCommand.setHospital(hospital);
         CommandResult result = listPatientCommand.execute();
 

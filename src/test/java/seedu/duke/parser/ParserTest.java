@@ -1,8 +1,10 @@
 package seedu.duke.parser;
 import org.junit.jupiter.api.Test;
 import seedu.duke.commands.Command;
+import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
+import seedu.duke.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -71,12 +73,14 @@ public class ParserTest {
 
     @Test
     public void parseCommandList() {
+        Hospital hospital = new Hospital();
+        Ui ui = new Ui();
         State mainState = new State(StateType.MAIN_STATE);
-        Command returnedCommand = new ListParser().execute("list", mainState);
+        Command returnedCommand = new ListParser(hospital, ui).execute("list", mainState);
         assertNotNull(returnedCommand);
 
         State taskState = new State(StateType.TASK_STATE);
-        Command returnedCommand1 = new ListParser().execute("list", taskState);
+        Command returnedCommand1 = new ListParser(hospital, ui).execute("list", taskState);
         assertNotNull(returnedCommand1);
     }
 
@@ -143,7 +147,7 @@ public class ParserTest {
     @Test
     public void parseCommandBack() {
         State taskState = new State(StateType.TASK_STATE);
-        Command returnedCommand = new BackParser().execute("back",taskState);
+        Command returnedCommand = new BackParser(new Hospital()).execute("back",taskState);
         assertEquals(true, returnedCommand != null);
     }
 
