@@ -2,26 +2,34 @@
 
 ## Introduction
 
-{Give a product intro}
+MediTask is a handy-guide for nurses to coordinate their tasks according to patients.
 
 ## Quick Start
-
-{Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
 1. Down the latest version of `Duke` from [here](http://link.to/duke).
 
-## Features 
+## Features
+### Adding a patient: `add`
+Adds a new patient to the list of patients.
+A patient with the same name cannot be added twice.
+Format: `add NAME /tag TAG_NAME`
 
-{Give detailed description of each feature}
-
-### Adding a todo: `todo`
+### Adding a todo task: `todo`
 Adds a new item to the list of todo items.
+Format: `todo TODO_NAME /tag TAG_NAME`
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+### Adding a deadline task: `deadline`
+Adds a new item to the list of deadline items.
+Format: `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME `
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+### Adding a todo task: `repeat`
+Adds a new item to the list of recurring items.
+Format: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
+
+### Finding task: `find`
+Finds an existing item in the list of task items.
+Format: `find KEYWORD`
 
 Example of usage: 
 

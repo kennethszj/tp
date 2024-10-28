@@ -9,13 +9,13 @@ import seedu.duke.data.hospital.Hospital;
 /**
  * Manages the different states of the program.
  */
-public class StageManager {
+public class StateManager {
     private State currentState; // current state of the program
 
     /**
      * Constructor for StageManager.
      */
-    public StageManager() {
+    public StateManager() {
         this.currentState = new State();
         assert currentState != null : "Current state should not be null.";
     }

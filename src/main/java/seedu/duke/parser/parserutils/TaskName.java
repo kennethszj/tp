@@ -1,6 +1,18 @@
 package seedu.duke.parser.parserutils;
-
+/**
+ * Utility class for extracting a task name from an input string.
+ * Implements the {@link StringExtraction} interface.
+ */
 public class TaskName implements StringExtraction{
+    /**
+     * Extracts the task name from the input string, based on the type of task command.
+     * Handles commands prefixed with "deadline", "repeat", or "todo" and trims any additional parameters
+     * following keywords such as "/by", "/every", or "/tag".
+     *
+     * @param input The input string containing a task command with the task name and optional parameters.
+     * @return The extracted task name as a trimmed string.
+     * @throws ArrayIndexOutOfBoundsException if the input format is incorrect or does not contain a valid task name.
+     */
     @Override
     public String extract(String input) {
         String[] name;

@@ -1,0 +1,16 @@
+{
+    "patients": [
+        {
+            "name": "Alice",
+            "tasksList": [
+                {
+                    "isDone": false
+                },
+                {
+                    "description": "Medication",
+                    "isDone": false
+                }
+            ]
+        }
+    ]
+}

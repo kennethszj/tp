@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Hospital.PatientNotFoundException;
 import seedu.duke.data.task.TaskList.TaskNotFoundException;
+import seedu.duke.storage.exception.StorageOperationException;
 
 public class StorageFileTest {
 
@@ -52,8 +53,40 @@ public class StorageFileTest {
     }
 
     @Test
+    public void checkDefaultFilePath_success() {
+        StorageFile storage = new StorageFile();
+        assertEquals("data/hospital_data.json", storage.getFilePath());
+    }
+
+    @Test
+    public void checkDefaultFilePathString_success() {
+        StorageFile storage = new StorageFile();
+        assertEquals("File Path: " + "data/hospital_data.json", storage.toString());
+    }
+
+    @Test
+    public void checkFileNotFound_success() {
+        String filePathNotFound = "src/test/java/seedu/duke/data/hospital_data_not_found.json";
+        File file = new File(filePathNotFound);
+        assertTrue(!file.exists());
+
+        StorageFile storage = new StorageFile(filePathNotFound);
+
+        assertTrue(file.exists());
+        file.delete();
+    }
+
+    @Test
+    public void checkFileFound_success() {
+        StorageFile storage = new StorageFile(filePath);
+        File file = new File(filePath);
+        assertTrue(file.exists());
+    }
+
+    @Test
     public void loadFromFile_success() throws TaskNotFoundException, PatientNotFoundException {
-        Hospital loadHospital = JsonUtil.loadFromFile(filePath);
+        StorageFile storage = new StorageFile(filePath);
+        Hospital loadHospital = storage.load();
 
         assertEquals("Alice", loadHospital.getPatient(0).getName());
         assertEquals("Bob", loadHospital.getPatient(1).getName());
@@ -65,15 +98,39 @@ public class StorageFileTest {
     }
 
     @Test
-    public void saveToFile_success() {
+    public void saveToFile_success() throws StorageOperationException {
         String pathToSave = "src/test/java/seedu/duke/data/hospital_data_save.json";
+        StorageFile storage = new StorageFile(pathToSave);
+
         File file = new File(pathToSave);
         // check if file exists
         if (file.exists()) {
             file.delete();
         }
 
-        JsonUtil.saveToFile(hospital, pathToSave);
+        storage.save(hospital);
         assertTrue(file.exists());
     }
+
+    @Test
+    public void backupFile_success() {
+        String filePath = "src/test/java/seedu/duke/data/hospital_data.json";
+        String backupFilePath = "src/test/java/seedu/duke/data/hospital_data_backup.json";
+        StorageBackup storageBackup = new StorageBackup(backupFilePath);
+
+        File file = new File(backupFilePath);
+        // check if file exists
+        if (file.exists()) {
+            file.delete();
+        }
+
+        storageBackup.createBackupFile(filePath);
+        assertTrue(file.exists());
+
+        // Delete the file after testing
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
 }

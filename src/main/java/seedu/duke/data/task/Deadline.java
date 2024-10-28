@@ -3,6 +3,15 @@ package seedu.duke.data.task;
 public class Deadline extends Task{
     protected String by;
 
+    // Jackson requires a default constructor
+    public Deadline() {
+        super();
+    }
+
+    public Deadline(String description) {
+        super(description);
+    }
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -25,5 +34,5 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
-        
+
 }

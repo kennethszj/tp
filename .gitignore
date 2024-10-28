@@ -18,4 +18,12 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # VSCode settings
 .vscode/settings.json
+
+# Project settings
 data/hospital_data.json
+data/hospital_backup_*.json
+
+# Neovim settings
+.classpath
+.project
+.settings/org.eclipse.buildship.core.prefs

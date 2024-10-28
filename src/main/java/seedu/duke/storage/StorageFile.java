@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.duke.data.hospital.Hospital;
+import seedu.duke.storage.exception.StorageOperationException;
+import seedu.duke.ui.Ui;
 
 /**
  * Represents a storage file.
@@ -14,8 +16,10 @@ public class StorageFile {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
     private static final Logger logger = Logger.getLogger("StorageFile");
 
+    Ui ui = new Ui();
+
     static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+        logger.setLevel(Level.SEVERE);
     }
 
     /** The file path of the storage file. */
@@ -46,14 +50,14 @@ public class StorageFile {
                 f.createNewFile();
                 assert f.exists() : "File should exist after creation";
 
-                JsonUtil.saveToFile(filePath);
+                JsonUtil.saveToFile(filePath); // Save an initial hospital to the file
 
                 logger.log(Level.INFO, "File created successfully: {0}", filePath);
             } catch (IOException e) {
-                // TODO: Update error handler
-                System.out.println("Error creating file: " + e.getMessage());
+                ui.showToUser("Error creating file: " + e.getMessage());
                 logger.log(Level.WARNING, "Error creating file: {0}", e.getMessage());
-                System.exit(0);
+            } catch (StorageOperationException e) {
+                ui.showToUser(e.getMessage());
             }
         }
     }
@@ -61,12 +65,23 @@ public class StorageFile {
     public void save(Hospital hospital) {
         assert hospital != null : "Hospital cannot be null";
         logger.log(Level.INFO, "Going to save data to file: {0}", filePath);
-        JsonUtil.saveToFile(hospital, filePath);
+        try {
+            JsonUtil.saveToFile(hospital, filePath);
+        } catch (StorageOperationException e) {
+            ui.showToUser(e.getMessage());
+
+        }
     }
 
     public Hospital load() {
         logger.log(Level.INFO, "Going to load data from file: {0}", filePath);
-        return JsonUtil.loadFromFile(getFilePath());
+        try {
+            return JsonUtil.loadFromFile(getFilePath());
+        } catch (StorageOperationException e) {
+            ui.showToUser("File is Corrupted! " + e.getMessage());
+            StorageBackup.createBackupFile(filePath); // Create a backup file
+            return new Hospital(); // Return an empty hospital
+        }
     }
 
     @Override

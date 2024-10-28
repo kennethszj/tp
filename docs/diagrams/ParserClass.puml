@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface CommandParser {
+}
+
+class AddDeadlineParser implements CommandParser {
+}
+
+class AddParser implements CommandParser {
+}
+
+class AddRepeatParser implements CommandParser {
+}
+
+class AddTodoParser implements CommandParser {
+}
+
+class BackParser implements CommandParser {
+}
+
+class DeleteParser implements CommandParser {
+}
+
+class ExitParser implements CommandParser {
+}
+
+class FindParser implements CommandParser {
+}
+
+class ListParser implements CommandParser {
+}
+
+class MarkParser implements CommandParser {
+}
+
+class SelectParser implements CommandParser {
+}
+
+class UnmarkParser implements CommandParser {
+}
+
+class Parser {
+    +parseCommand(command: String): void
+}
+
+Parser --> AddDeadlineParser
+Parser --> AddParser
+Parser --> AddRepeatParser
+Parser --> AddTodoParser
+Parser --> BackParser
+Parser --> DeleteParser
+Parser --> ExitParser
+Parser --> FindParser
+Parser --> ListParser
+Parser --> MarkParser
+Parser --> SelectParser
+Parser --> UnmarkParser
+
+@enduml

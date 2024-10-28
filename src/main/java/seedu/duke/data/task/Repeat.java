@@ -3,6 +3,15 @@ package seedu.duke.data.task;
 public class Repeat extends Task{
     protected String repeat;
 
+    // Jackson requires a default constructor
+    public Repeat() {
+        super();
+    }
+
+    public Repeat(String description) {
+        super(description);
+    }
+
     public Repeat(String description, String repeat) {
         super(description);
         this.repeat = repeat;
@@ -25,5 +34,5 @@ public class Repeat extends Task{
     public String toString() {
         return "[R]" + super.toString() + " (repeat: every " + repeat + ")";
     }
-    
+
 }

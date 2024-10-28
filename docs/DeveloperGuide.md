@@ -11,6 +11,14 @@
 ## Setting up, getting started
 Refer to the guide for 'Setting up and getting started.'
 
+---
+
+## Design
+### Parser
+The Parser interface uses a series of classes to implement the various commands.
+![Parser_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParserClass.png)
+
+
 ### **AddPatientCommand**
 #### Implementation
 
@@ -49,9 +57,9 @@ There are three possible types of tasks - Todo, Deadline and Repeat.
 
 #### Sequence Diagram
 
-The following sequence diagram illustrates how the `AddPatientCommand` is executed:
+The following sequence diagram illustrates how the `AddTaskCommand` is executed:
 
-![](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
+![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskClassDiagram.png)
 
 ### **FindCommand**
 #### Implementation
@@ -64,9 +72,9 @@ The find feature allows users to find the name of a patient, or the name of a ta
 
 #### Sequence Diagram
 
-The following sequence diagram illustrates how the `AddPatientCommand` is executed:
+The following sequence diagram illustrates how the `FindPatientCommand` is executed:
 
-![](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
+![Find_Sequence_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/FindSequenceDiagram.png)
 
 ### **State Switching Feature**
 #### Implementation

@@ -99,7 +99,6 @@ public class Ui {
      *
      * @return the user input as a String
      */
-
     public String readCommand() {
         assert scanner != null;
         if (scanner.hasNextLine()) {

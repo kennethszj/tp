@@ -8,6 +8,11 @@ import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.ui.Ui;
 
+/**
+ * Parses user input commands and executes the corresponding actions in the application.
+ * This class handles various commands such as adding tasks, deleting tasks, marking tasks,
+ * and managing the application's state.
+ */
 public class Parser {
 
     private static final Logger LOGGER = Logger.getLogger("Parser");
@@ -19,16 +24,26 @@ public class Parser {
     private final Hospital hospital;
     private final Ui ui;
 
+    /**
+     * Initializes a new instance of the {@code Parser} class with the specified {@link Hospital} and {@link Ui}.
+     *
+     * @param hospital The hospital context for parsing commands.
+     * @param ui       The user interface instance for displaying output.
+     */
     public Parser(Hospital hospital, Ui ui) {
         this.hospital = hospital;
         this.ui = ui;
     }
 
+    /**
+     * Parses a command line input and executes the corresponding command based on the current state.
+     *
+     * @param line  The input command line as a string.
+     * @param state The current state of the application, which influences command execution.
+     * @return The command object representing the executed command, or {@code null} if the command is invalid
+     *         or the input is empty.
+     */
     public Command parseCommand(String line, State state){
-        if (line == null || line.isEmpty()){
-            // System.out.println("Command is empty");
-            return null;
-        }
         String[] parts = line.split(" ");
 
         switch(parts[0]){
@@ -133,16 +148,11 @@ public class Parser {
             break;
 
         case "exit":
-            try{
-                return new ExitParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Exit Command Error: Non-Numerical Error");
-            }
-            break;
+            return new ExitParser().execute(line, state);
 
         default:
             LOGGER.log(Level.WARNING, "The user did not enter a valid command");
+            return null;
         }
         return null;
     }

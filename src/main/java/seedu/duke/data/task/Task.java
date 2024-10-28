@@ -1,7 +1,16 @@
 package seedu.duke.data.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Todo.class, name = "todo"),
+    @JsonSubTypes.Type(value = Deadline.class, name = "deadline"),
+    @JsonSubTypes.Type(value = Repeat.class, name = "repeat")
+})
 public class Task {
     private String description;
     private boolean isDone;
@@ -49,7 +58,7 @@ public class Task {
         isDone = false;
     }
     public static Task createTask(
-        String type, 
+        String type,
         String... args
     ) throws MissingTaskArgument, EmptyTaskDescription, UnknownTaskType {
         try{
@@ -79,7 +88,7 @@ public class Task {
         public MissingTaskArgument(String type) {
             super(createErrorMessage(type));
         }
-    
+
         private static String createErrorMessage(String type) {
             StringBuilder sb = new StringBuilder();
             sb.append("Missing arguments for task type: ").append(type).append("\n");
@@ -101,14 +110,14 @@ public class Task {
             return sb.toString();
         }
     }
-    
+
 
     public static class EmptyTaskDescription extends Exception {
         public EmptyTaskDescription() {
             super("Task description cannot be empty");
         }
     }
-    
+
 
     @Override
     public String toString() {

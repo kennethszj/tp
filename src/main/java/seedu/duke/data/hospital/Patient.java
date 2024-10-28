@@ -11,7 +11,7 @@ public class Patient {
 
     // Required for JSON deserialization
     public Patient() {
-        this.name = "";
+        this.name = "UNKNOWN";
         this.taskList = new TaskList();
     }
 

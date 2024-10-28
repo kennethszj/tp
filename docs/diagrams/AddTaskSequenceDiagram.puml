@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor User
+participant "Parser" as parser
+participant "AddTodoParser" as todoParser
+participant "AddDeadlineParser" as deadlineParser
+participant "AddRepeatParser" as repeatParser
+participant "AddTaskCommand" as addTaskCommand
+participant "TaskList" as taskList
+participant "Task" as task
+
+User -> parser : parseCommand("todo Buy groceries", state)
+parser -> todoParser : execute(line, state)
+todoParser -> addTaskCommand : new AddTaskCommand("todo", taskName, tag)
+activate addTaskCommand
+addTaskCommand -> task : createTask("todo", taskName, tag)
+activate task
+task --> addTaskCommand : Task
+deactivate task
+addTaskCommand -> taskList : addTask(task)
+activate taskList
+taskList --> addTaskCommand : void
+deactivate taskList
+addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+deactivate addTaskCommand
+
+User -> parser : parseCommand("deadline Submit report by Friday", state)
+parser -> deadlineParser : execute(line, state)
+deadlineParser -> addTaskCommand : new AddTaskCommand("deadline", taskName, by, tag)
+activate addTaskCommand
+addTaskCommand -> task : createTask("deadline", taskName, by, tag)
+activate task
+task --> addTaskCommand : Task
+deactivate task
+addTaskCommand -> taskList : addTask(task)
+activate taskList
+taskList --> addTaskCommand : void
+deactivate taskList
+addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+deactivate addTaskCommand
+
+User -> parser : parseCommand("repeat Feed the cat every day", state)
+parser -> repeatParser : execute(line, state)
+repeatParser -> addTaskCommand : new AddTaskCommand("repeat", taskName, recur, tag)
+activate addTaskCommand
+addTaskCommand -> task : createTask("repeat", taskName, recur, tag)
+activate task
+task --> addTaskCommand : Task
+deactivate task
+addTaskCommand -> taskList : addTask(task)
+activate taskList
+taskList --> addTaskCommand : void
+deactivate taskList
+addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+deactivate addTaskCommand
+@enduml

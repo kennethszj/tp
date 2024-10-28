@@ -6,8 +6,8 @@ import seedu.duke.commands.ExitCommand;
 import seedu.duke.commands.HospitalCommand;
 import seedu.duke.data.exception.UnknownStateFound;
 import seedu.duke.data.hospital.Hospital;
-import seedu.duke.data.state.StageManager;
 import seedu.duke.data.state.State;
+import seedu.duke.data.state.StateManager;
 import seedu.duke.parser.Parser;
 import seedu.duke.storage.StorageFile;
 import seedu.duke.ui.Ui;
@@ -25,7 +25,7 @@ public class MediTask {
     private Ui ui;
     private StorageFile storage;
     private Hospital hospital; // Load data from file
-    private StageManager stageManager; // Manages the different states of the program
+    private StateManager stageManager; // Manages the different states of the program
 
     /** Runs the program until termination. */
     public void run() {
@@ -47,10 +47,12 @@ public class MediTask {
     private void start() {
         ui = new Ui();
         storage = new StorageFile();
-        hospital = storage.load(); // Load data from file
-        stageManager = new StageManager(); // Initialize the stage manager
+
+        stageManager = new StateManager(); // Initialize the stage manager
 
         ui.showWelcome();
+
+        hospital = storage.load(); // Load data from file
 
         HospitalCommand.setHospital(hospital);
     }
