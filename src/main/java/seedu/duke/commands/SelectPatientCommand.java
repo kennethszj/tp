@@ -45,6 +45,10 @@ public class SelectPatientCommand extends HospitalCommand {
      */
     @Override
     public CommandResult execute() {
+        //check for invalid input. -2 is result from non integer input
+        if (index == -2) {
+            return new CommandResult("Invalid input: Please enter a valid numeric index.");
+        }
         assert index >= 0 : "Index should be non-negative";
         assert state != null : "State object should not be null";
         assert hospital != null : "Hospital object should not be null";
