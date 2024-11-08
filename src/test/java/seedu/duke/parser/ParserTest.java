@@ -1,6 +1,7 @@
 package seedu.duke.parser;
 import org.junit.jupiter.api.Test;
 import seedu.duke.commands.Command;
+import seedu.duke.commands.CommandResult;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
@@ -160,6 +161,7 @@ public class ParserTest {
      * null commands in the task state, and throws an exception for invalid input.
      */
 
+    //@lowjunchen
     @Test
     public void parseCommandSelect() {
         State mainState = new State(StateType.MAIN_STATE);
@@ -170,13 +172,13 @@ public class ParserTest {
         Command returnedCommand1 = new SelectParser().execute("select 0", taskState);
         assertEquals(true, returnedCommand1 == null);
 
-        boolean thrown = false;
-        try{
-            new SelectParser().execute("select Tom", mainState);
-        } catch(Exception e){
-            thrown = true;
-        }
-        assertTrue(thrown);
+        // test invalid non integer input "select Tom" in MAIN_STATE
+        Command invalidCommand = new SelectParser().execute("select Tom", mainState);
+        assertNotNull(invalidCommand);
+
+        // check that this invalid command returns correct error message
+        CommandResult result = invalidCommand.execute();
+        assertEquals("Invalid input: Please enter a valid numeric index.", result.getFeedbackToUser());
     }
 
     /**

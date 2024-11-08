@@ -183,15 +183,14 @@ class PatientCommandTest {
         assertEquals("Patient not found in the list!", result.getFeedbackToUser());
         assertEquals(StateType.MAIN_STATE, state.getState());
     }
-
+ //   @@ NCF3535
     @Test
     public void testSelectPatientCommand_invalidIndexNegative_throwsAssertionError() {
         SelectPatientCommand selectCommand = new SelectPatientCommand(-1, state);
         selectCommand.setHospital(hospital);
 
-        AssertionError thrown = assertThrows(AssertionError.class, selectCommand::execute,
-                "Expected execute() to throw an AssertionError for negative index.");
-        assertTrue(thrown.getMessage().contains("Index should be non-negative"));
+        CommandResult result = selectCommand.execute();
+        assertEquals("Invalid input: Please enter a valid numeric index.", result.getFeedbackToUser());
     }
 
     @Test
