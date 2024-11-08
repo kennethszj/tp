@@ -183,7 +183,7 @@ class PatientCommandTest {
         assertEquals("Patient not found in the list!", result.getFeedbackToUser());
         assertEquals(StateType.MAIN_STATE, state.getState());
     }
- //   @@ NCF3535
+    // @@ NCF3535
     @Test
     public void testSelectPatientCommand_invalidIndexNegative_throwsAssertionError() {
         SelectPatientCommand selectCommand = new SelectPatientCommand(-1, state);
