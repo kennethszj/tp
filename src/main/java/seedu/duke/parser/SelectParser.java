@@ -1,7 +1,6 @@
 package seedu.duke.parser;
 
 import seedu.duke.commands.Command;
-import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.SelectPatientCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
