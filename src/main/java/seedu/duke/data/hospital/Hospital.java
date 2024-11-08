@@ -159,7 +159,11 @@ public class Hospital {
             totalTasks += taskList.getSize();
             completedTasks += taskList.getCompletedTaskCount();
         }
-        return totalTasks == 0 ? 0.0 : ((double) completedTasks / totalTasks) * 100;
+        // If there are no tasks, return 100% completion
+        if (totalTasks == 0) {
+            return 100.0;
+        }
+        return ((double) completedTasks / totalTasks) * 100;
     }
     public static class PatientNotFoundException extends Exception {
         public PatientNotFoundException() {
