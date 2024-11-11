@@ -30,7 +30,7 @@ public class Parser {
      */
     public Command parseCommand(String line, State state){
 
-        //need or program crash
+        //need or program crash if input is white spaces
         if (line == null || line.trim().isEmpty()) {
             Ui.showToUserException("Input cannot be empty");
             LOGGER.log(Level.WARNING, "Empty or space only input");
