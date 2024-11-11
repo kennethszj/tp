@@ -96,7 +96,7 @@ public class StateManager {
     public CommandResult runMainState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
-            throw new InvalidCommandException("");
+            throw new InvalidCommandException("Invalid Command");
         }
         // Handle patient selection
         if (command instanceof seedu.duke.commands.SelectPatientCommand) {
